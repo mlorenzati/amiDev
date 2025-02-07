@@ -25,7 +25,7 @@ static_libs := -lc -lm -ldebug -lnet -lunix -lc -lm -lamiga # to use Amiga paths
 # https://stackoverflow.com/questions/4036191/sources-from-subdirectories-in-makefile/4038459
 # http://www.microhowto.info/howto/automatically_generate_makefile_dependencies.html
 
-program = out/a
+program = out/muiTest
 OUT = $(program)
 CC = m68k-amiga-elf-gcc
 VASM = vasmm68k_mot
@@ -39,7 +39,7 @@ else
 endif
 
 # The directory where the static libraries are located
-LIBSDIR = $(abspath libs)
+LIBSDIR = $(abspath ../libs)
 
 CCFLAGS = -g -MP -MMD -m68000 -Ofast -nostdlib -Wextra -Wno-unused-function -Wno-volatile-register-var -fomit-frame-pointer -fno-tree-loop-distribution -flto -fwhole-program -fno-exceptions -I${MUISDKDIR} -I$(LIBSDIR)/library -I$(LIBSDIR)/library/include -D__stdargs=
 CPPFLAGS= $(CCFLAGS) -fno-rtti -fcoroutines -fno-use-cxa-atexit
