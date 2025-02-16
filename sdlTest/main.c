@@ -1,9 +1,14 @@
 
-#include <SDL_config_amigaos.h>
-#include <SDL.h>
-#include <stdio.h>
-#include <stdlib.h>
+#define OPTION_USE_CLIB2 1
 
+//#include <SDL_config_amigaos.h>
+#include <SDL.h>
+
+#if OPTION_USE_CLIB2
+#define HAVE_PUTENV
+#include <stdio.h>
+#include <stdlib_headers.h>
+#endif
 
 #include <clib/icon_protos.h>
 #include <workbench/startup.h>
@@ -308,4 +313,9 @@ int main(int argc, char *argv[])
     
     printf("EXIT\n");
     return EXIT_SUCCESS;
+}
+
+__attribute__((used)) __attribute__((section(".text.unlikely"))) void _start(int argc, char **argv)
+{
+	main(argc,argv);
 }
