@@ -4,6 +4,16 @@
         {
             "type": "amiga",
             "request": "launch",
+            "preLaunchTask": "compile-nolib",
+            "name": "no lib",
+            "config": "A1200",
+            "program": "${workspaceFolder}/nolibs/${config:amiga.program}",
+            "kickstart": "${config:amiga.rom-paths.A1200}",
+            "internalConsoleOptions": "openOnSessionStart"
+        },
+        {
+            "type": "amiga",
+            "request": "launch",
             "preLaunchTask": "compile-mui-test",
             "name": "MUI Test",
             "config": "A1200",

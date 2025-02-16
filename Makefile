@@ -1,6 +1,6 @@
 # Main Makefile
 
-SUBFOLDERS := muiTest sdlTest libSDL  # Space-separated list of subdirectories
+SUBFOLDERS := nolibs muiTest sdlTest libSDL  # Space-separated list of subdirectories
 
 # Detect OS
 ifeq ($(OS),Windows_NT)
