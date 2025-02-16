@@ -36,19 +36,6 @@
             "internalConsoleOptions": "openOnSessionStart",
             "cmdList":"C:Mount PIPE:,C:stack 16384,C:SetPatch QUIET",
             "bsdSocket":true
-        },
-        {
-            "type": "amiga",
-            "request": "launch",
-            "preLaunchTask": "compile-lib-sdl",
-            "name": "libSDL",
-            "config": "A1200",
-            "program": "${workspaceFolder}/libSDL/${config:amiga.program}",
-            "kickstart": "${config:amiga.rom-paths.A1200}",
-            "workbench": "${config:amiga.workbench-path}",
-            "internalConsoleOptions": "openOnSessionStart",
-            "cmdList":"C:Mount PIPE:,C:stack 16384,C:SetPatch QUIET",
-            "bsdSocket":true
         }
     ]
 }
