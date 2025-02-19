@@ -21,7 +21,7 @@ objects := $(cpp_objects) $(c_objects) $(s_objects) $(vasm_objects)
 # This is the place to declare the static libraries
 #static_libs := -lc -lm -ldebug -lnet -lunix -lc -lm -lamiga # to use Amiga paths
 #static_libs := -lm -ldebug -lnet -lunix -lc -lm -lamiga # to use UNIX paths
-static_libs := -lSDL -lamiga -lc -lm -ldebug -lnet -lunix -lc -lm 
+static_libs := -lSDL -lamiga -lc -lm -ldebug -lnet -lunix -lc -lm -lalib
 
 # https://stackoverflow.com/questions/4036191/sources-from-subdirectories-in-makefile/4038459
 # http://www.microhowto.info/howto/automatically_generate_makefile_dependencies.html
@@ -41,12 +41,14 @@ endif
 
 # The directory where the static libraries are located
 LIBSDIR = $(abspath ../libs)
-
-CCFLAGS = -g -MP -MMD -Ofast -nostdlib -Wextra -Wno-unused-function -Wno-volatile-register-var -fomit-frame-pointer -fno-tree-loop-distribution -flto -fwhole-program -fno-exceptions -I${MUISDKDIR} -I$(LIBSDIR)/library -I$(LIBSDIR)/library/include -I$(LIBSDIR)/library/include/sdl -D__stdargs= -m68020-60 -mhard-float 
+PROCESSOR=68000 # 68000 68020-60 
+CCFLAGS = -g -MP -MMD -m$(PROCESSOR) -mhard-float -Ofast -nostdlib -Wextra -flto -fno-exceptions -D__AMIGA__ -DNOIXEMUL -D__stdargs= \
+	-Wno-volatile-register-var -fomit-frame-pointer -fno-tree-loop-distribution -Wno-unused-function -fwhole-program \
+	-I${MUISDKDIR} -I$(LIBSDIR)/library -I$(LIBSDIR)/library/include -I$(LIBSDIR)/library/include/sdl
 CPPFLAGS= $(CCFLAGS) -fno-rtti -fcoroutines -fno-use-cxa-atexit
 ASFLAGS = -Wa,-g,--register-prefix-optional,-I$(SDKDIR),-D
 LDFLAGS = -Wl,--emit-relocs,-Ttext=0,-Map=$(OUT).map -L${LIBSDIR}
-VASMFLAGS = -m68020-60 -Felf -opt-fconst -nowarn=62 -dwarf=3 -quiet -x -I. -I$(SDKDIR)
+VASMFLAGS = -m$(PROCESSOR) -Felf -opt-fconst -nowarn=62 -dwarf=3 -quiet -x -I. -I$(SDKDIR)
 
 all: $(OUT).exe
 
@@ -56,7 +58,7 @@ $(OUT).exe: $(OUT).elf
 
 $(OUT).elf: $(objects)
 	$(info Linking $(program).elf)
-	@$(CC) $(CCFLAGS) $(LDFLAGS) $(static_libs) $(objects) -o $@
+	@$(CC) $(CCFLAGS) $(LDFLAGS) $(objects) $(static_libs) -o $@
 	@m68k-amiga-elf-objdump --disassemble --no-show-raw-ins --visualize-jumps -S $@ >$(OUT).s
 
 clean:

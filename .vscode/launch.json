@@ -29,7 +29,7 @@
             "request": "launch",
             "preLaunchTask": "compile-sdl-test",
             "name": "SDL Test",
-            "config": "A1200",
+            "config": "A4000",
             "program": "${workspaceFolder}/sdlTest/${config:amiga.program}",
             "kickstart": "${config:amiga.rom-paths.A1200}",
             "workbench": "${config:amiga.workbench-path}",

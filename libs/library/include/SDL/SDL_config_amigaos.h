@@ -57,7 +57,7 @@ typedef unsigned int        uint32_t;
 //typedef unsigned int        size_t;
 #endif
 #ifndef _UINTPTR_T_DECLARED
-typedef unsigned int       uintptr_t;
+typedef unsigned long        uintptr_t;
 #define _UINTPTR_T_DECLARED
 #endif
 #ifndef _INT64_T_DECLARED
